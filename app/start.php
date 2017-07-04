@@ -60,15 +60,3 @@ $container['messages'] = function ($container) {
     return new \App\Messages\Message('rus');
 };
 
-
-//
-//$container['user'] = function ($container) {
-//    return new \App\Models\User();
-//};
-
-
-//var_dump($app->getContainer()->get('user')->create([
-//    'username' => "vasya",
-//    'password' => "pupkin"
-//]));
-
