@@ -1,24 +1,14 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Template • TodoMVC</title>
-		<link rel="stylesheet" href="css/base.css">
-		<link rel="stylesheet" href="css/app.css">
-		<link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<!-- CSS overrides - remove if you don't need it -->
-		<link rel="stylesheet" href="css/app.css">
-	</head>
-	<body>
+{% include 'includes/head.php' %}
+
+<body>
         <header class="top-header">
             <div class="top-header-container">
                 <div class="not-auth">
-                    <a id="sign-in" class="auth-buttons nav-links" href="javascript:void(0);">Sign in</a>
-                    <a id="sign-up" class="auth-buttons nav-links" href="javascript:void(0);">Sign up</a>
+                    <a id="sign-in" class="sign auth-buttons nav-links" href="javascript:void(0);">Sign in</a>
+                    <a id="sign-up" class="sign auth-buttons nav-links" href="javascript:void(0);">Sign up</a>
                 </div>
                 <div class="auth">
+                    <a href="/share/" class="nav-links" id="share">Share</a>
                     <a id="logout" class="nav-links" href="javascript:void(0);">Logout</a>
                 </div>
             </div>
@@ -58,14 +48,6 @@
 				<button class="clear-completed">Clear completed</button>
 			</footer>
 		</section>
-		<footer class="info">
-			<p>Double-click to edit a todo</p>
-			<!-- Remove the below line ↓ -->
-			<p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
-			<!-- Change this out with your name and url ↓ -->
-			<p>Created by <a href="http://todomvc.com">you</a></p>
-			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>
 
         <div id="dialog-form" title="Sign in" style="display: none;">
             <p class="validateTips">All form fields are required.</p>
@@ -80,13 +62,17 @@
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </form>
         </div>
-		<!-- Scripts here. Don't remove ↓ -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script src="/js/base.js"></script>
-		<script src="/js/app.js"></script>
-        <script>
 
-        </script>
+        {% include 'includes/footer.php' %}
+
+
+        <script src="/js/TaskTodo.js"></script>
+        <script src="/js/TaskTodo.Dialog.js"></script>
+        <script src="/js/TaskTodo.Nav.js"></script>
+        <script src="/js/TaskTodo.List.js"></script>
+        <script src="/js/TaskTodo.NewItem.js"></script>
+        <script src="/js/TaskTodo.Auth.js"></script>
+        <script src="/js/TaskTodo.Filter.js"></script>
+		<script src="/js/app.js"></script>
 	</body>
 </html>

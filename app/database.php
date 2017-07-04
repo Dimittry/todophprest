@@ -14,4 +14,5 @@ $dbSettings = $settings['mode']['db'];
 //    'prefix' => $dbSettings['prefix'],
 //]);
 $capsule->addConnection($dbSettings);
+$capsule->setAsGlobal();
 $capsule->bootEloquent();

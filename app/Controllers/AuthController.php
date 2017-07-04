@@ -19,12 +19,10 @@ class AuthController extends Controller
 
     public function register($request, $response)
     {
-        $validation = $this->validate($request);
         $result = false;
-
-
+        $validation = $this->validate($request);
         if($validation->failed()) {
-            return $response->withJson(['result' => $result, 'message' => 'Заполните поля'], 200);
+            return $response->withJson(['result' => $result, 'message' => $this->messages->getMessage('fillFields')], 200);
         }
         try {
             $user = User::create([
@@ -33,12 +31,16 @@ class AuthController extends Controller
             ]);
             $result = true;
         } catch (\PDOException $e) {
-            return $response->withJson(['result' => $result, 'message' => 'Пользовтель с таким именем уже существует.'], 200);
+            return $response->withJson(['result' => $result, 'message' => $this->messages->getMessage('userAlreadyExists')], 200);
         }
-
         $this->auth->attempt($user->username, $request->getParam('password'));
 
-        return $response->withJson(['result' => $result, 'user' => $user], 200);
+        return $response->withJson([
+            'result' => $result,
+            'user' => $user,
+            'tasks' => [],
+            'message' => $this->messages->getMessage('successfulRegistration')
+        ], 200);
     }
 
     public function signin($request, $response)
@@ -48,15 +50,23 @@ class AuthController extends Controller
         $validation = $this->validate($request);
 
         if($validation->failed()) {
-            return $response->withJson(['result' => $result, 'message' => 'Заполните поля'], 200);
+            return $response->withJson(['result' => $result, 'message' => $this->messages->getMessage('fillFields')], 200);
         }
 
         $auth = $this->auth->attempt($request->getParam('username'), $request->getParam('password'));
+        $message = $this->messages->getMessage('failureLogin');
         if($auth) {
             $user = $this->auth->user();
             $result = true;
+            $message = $this->messages->getMessage('successfulLogin');
         }
-        return $response->withJson(['result' => $result, 'user' => $user, 'tasks' => $user->tasks], 200);
+        $tasks = ($user) ? $user->tasks : [];
+        return $response->withJson([
+            'result' => $result,
+            'user' => $user,
+            'tasks' => $tasks,
+            'message' => $message
+        ], 200);
     }
 
     public function logout($request, $response) {

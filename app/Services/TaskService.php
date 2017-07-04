@@ -7,6 +7,7 @@ use App\Models\Task;
 
 class TaskService {
 
+
     public function getAll()
     {
         return Task::all()->sortBy('created_at');
@@ -15,6 +16,11 @@ class TaskService {
     public function persist(TaskDTO $taskDTO)
     {
         return ($taskDTO->isNew()) ? $this->add($taskDTO) : $this->update($taskDTO);
+    }
+
+    public function delete($id)
+    {
+        return Task::find($id)->delete();
     }
 
     private function add($taskDTO)
@@ -26,7 +32,8 @@ class TaskService {
         }
         return $task->create([
             'name' => $taskDTO->getName(),
-            'user_id' => $taskDTO->getUserId()
+            'user_id' => $taskDTO->getUserId(),
+            'completed' => $taskDTO->isCompleted()
         ]);
     }
 

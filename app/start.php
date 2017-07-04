@@ -48,6 +48,18 @@ $container['auth'] = function ($container) {
     return new \App\Auth\Auth;
 };
 
+$container['taskService'] = function ($container) {
+    return new \App\Services\TaskService;
+};
+
+$container['shareService'] = function ($container) {
+    return new \App\Services\ShareService($container);
+};
+
+$container['messages'] = function ($container) {
+    return new \App\Messages\Message('rus');
+};
+
 
 //
 //$container['user'] = function ($container) {

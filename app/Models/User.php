@@ -13,6 +13,8 @@ class User extends Eloquent
         'password'
     ];
 
+    protected $hidden = ['password'];
+
     public function tasks()
     {
         return $this->hasMany('App\Models\Task');
